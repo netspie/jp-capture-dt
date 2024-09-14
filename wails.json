@@ -1,0 +1,12 @@
+{
+  "name": "jp-capture-dt",
+  "outputfilename": "jp-capture-dt",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "Dariusz Luśnia",
+    "email": "dariusz.lusnia@gmail.com"
+  }
+}
