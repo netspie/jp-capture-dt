@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"jp-capture-dt/features"
 	"os"
 )
 
@@ -40,4 +42,13 @@ func (a *App) ReadFile(fp string) string {
 	bytes, _ := os.ReadFile(fp)
 	os.WriteFile(fp, []byte{}, 0644)
 	return string(bytes)
+}
+
+func (a *App) SearchJishoWord(word string) *features.JishoResponse {
+	r, _ := features.SearchJishoWord(word)
+
+	jsonData, _ := json.Marshal(r)
+	os.WriteFile("search.txt", jsonData, 0644)
+
+	return r
 }

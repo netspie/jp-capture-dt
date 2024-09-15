@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Quit, ReadFile } from "../wailsjs/go/main/App";
+import { Quit, ReadFile, SearchJishoWord } from "../wailsjs/go/main/App";
 import "./App.css";
 
 function App() {
@@ -14,11 +14,17 @@ function App() {
     return await ReadFile("data.txt");
   };
 
+  const searchJishoWords = async (textx: string) => {
+    await SearchJishoWord("命");
+  };
+
   useEffect(() => {
     window.addEventListener("blur", handleClickOutside);
 
     const setTextAsync = async () => {
-      setText(await readText());
+      const textx = await readText();
+      setText(textx);
+      await searchJishoWords(textx);
     };
     setTextAsync().catch(console.log);
 

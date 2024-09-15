@@ -13,3 +13,7 @@ export function Quit() {
 export function ReadFile(arg1) {
   return window['go']['main']['App']['ReadFile'](arg1);
 }
+
+export function SearchJishoWord(arg1) {
+  return window['go']['main']['App']['SearchJishoWord'](arg1);
+}
