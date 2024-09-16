@@ -48,7 +48,7 @@ func (a *App) SearchJishoWord(word string) *features.JishoResponse {
 	r, _ := features.SearchJishoWord(word)
 
 	jsonData, _ := json.Marshal(r)
-	os.WriteFile("search.txt", jsonData, 0644)
+	os.WriteFile("search.json", jsonData, 0644)
 
 	return r
 }

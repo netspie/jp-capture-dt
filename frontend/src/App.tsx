@@ -15,7 +15,7 @@ function App() {
   };
 
   const searchJishoWords = async (textx: string) => {
-    await SearchJishoWord("命");
+    await SearchJishoWord(textx);
   };
 
   useEffect(() => {

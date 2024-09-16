@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 )
 
 type JishoResponse struct {
@@ -27,7 +28,7 @@ type JishoResponseMeaning struct {
 }
 
 func SearchJishoWord(word string) (*JishoResponse, error) {
-	url := fmt.Sprintf("https://jisho.org/api/v1/search/words?keyword=%s", word)
+	url := fmt.Sprintf("https://jisho.org/api/v1/search/words?keyword=%s", url.QueryEscape(word))
 	resp, err := http.Get(url)
 
 	if err != nil {
