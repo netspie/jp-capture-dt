@@ -9,11 +9,14 @@ import (
 )
 
 type App struct {
-	ctx context.Context
+	ctx   context.Context
+	isDev bool
 }
 
-func NewApp() *App {
-	return &App{}
+func NewApp(isDev bool) *App {
+	return &App{
+		isDev: isDev,
+	}
 }
 
 func (a *App) startup(ctx context.Context) {
@@ -40,7 +43,11 @@ func (a *App) Quit() {
 
 func (a *App) ReadFile(fp string) string {
 	bytes, _ := os.ReadFile(fp)
-	os.WriteFile(fp, []byte{}, 0644)
+
+	if !a.isDev {
+		os.WriteFile(fp, []byte{}, 0644)
+	}
+
 	return string(bytes)
 }
 
@@ -51,4 +58,8 @@ func (a *App) SearchJishoWord(word string) *features.JishoResponse {
 	os.WriteFile("search.json", jsonData, 0644)
 
 	return r
+}
+
+func (a *App) IsDev() bool {
+	return a.isDev
 }

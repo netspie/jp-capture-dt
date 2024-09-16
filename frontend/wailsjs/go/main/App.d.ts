@@ -4,6 +4,8 @@ import {features} from '../models';
 
 export function Greet(arg1:string):Promise<string>;
 
+export function IsDev():Promise<boolean>;
+
 export function Quit():Promise<void>;
 
 export function ReadFile(arg1:string):Promise<string>;
