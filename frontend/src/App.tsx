@@ -28,12 +28,22 @@ function App() {
     setWords(words);
   };
 
+  const hasWord = (data: features.JishoResponseData): boolean => {
+    return data.japanese[0].word != "";
+  };
+
+  const getReadingStyle = (data: features.JishoResponseData): string => {
+    if (hasWord(data)) return "";
+
+    return "font-bold text-lg";
+  };
+
   useEffect(() => {
     refreshWords().catch(console.log);
 
-    !IsDev && window.addEventListener("blur", handleClickOutside);
+    if (!IsDev) window.addEventListener("blur", handleClickOutside);
     return () => {
-      !IsDev && window.removeEventListener("blur", handleClickOutside);
+      if (!IsDev) window.removeEventListener("blur", handleClickOutside);
     };
   }, []);
 
@@ -64,15 +74,21 @@ function App() {
           <h2 className="text-[11px] font-bold uppercase">Jisho</h2>
           {words?.data.map((data) => (
             <div className="py-1 text-sm">
-              <div className="flex flex-col gap-2">
-                <div className="w-full h-[1px] bg-slate-400" />
-                <div className="flex items-center">
-                  <h4 className="font-bold text-lg w-full shrink-1">
-                    {data.japanese[0].word}
-                  </h4>
-                  <h4 className="shrink-0">{data.japanese[0].reading}</h4>
+              {data.japanese.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <div className="w-full h-[1px] bg-slate-400" />
+                  <div className="flex items-center">
+                    {hasWord(data) && (
+                      <h4 className="font-bold text-lg w-full shrink-1">
+                        {data.japanese[0].word}
+                      </h4>
+                    )}
+                    <h4 className={`shrink-0 ${getReadingStyle(data)}`}>
+                      {data.japanese[0].reading}
+                    </h4>
+                  </div>
                 </div>
-              </div>
+              )}
               {data.senses.map((meaning, i) => (
                 <ul className="flex text-sm list-disc">
                   <li className="flex flex-wrap">
